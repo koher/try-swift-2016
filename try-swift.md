@@ -1,6 +1,6 @@
 autoscale: true
 
-# Three Stories about __Error Handling__
+# Three Stories about __Error Handling__ in Swift
 
 ## Yuta Koshizawa @koher
 
@@ -22,7 +22,7 @@ autoscale: true
 
 ### Error Handling in C
 
-^ My first programming language was C except I had played BASIC in my childhood. Error handling in C was like this.
+^ My first programming language was C except I had played BASIC in my childhood. Error handling in C was something like this.
 
 ```c
 // [ C ]
@@ -32,11 +32,13 @@ if (numbers == NULL) {
 }
 ```
 
+^ It can be easily forgotten.
+
 ---
 
 ### Error Handling in C
 
-^ It can be easily forgotten. The C compiler never warns or fails with codes without error handling even if we forget to handle errors.
+^ The C compiler never warns or fails with codes without error handling even if we forget to handle errors.
 
 ```c
 // [ C ]
@@ -98,11 +100,13 @@ try {
 }
 ```
 
+^ But sometimes we want to ignore errors. Text fields might force users to input only numbers. Even then, =>
+
 ---
 
 ### Error Handling in Java
 
-^ But sometimes we want to ignore errors. Text fields might force users to input only numbers. Even then, we must write meaningless error handling to ignore the errors.
+^ we must write meaningless error handling to ignore the errors.
 
 ```java
 // [ Java ]
@@ -239,19 +243,29 @@ _ = foo.updateBar(bar) // Ignores the error
 
 ^ And, _optionals_ provide more flexible ways to handle errors. While _exceptions_ must be handled just after they are thrown, _optionals_ can be handled lazily.
 
-^ We can assign an _optional_ into a variable, pass it to a function or method, and store it in a property.
+^ We can assign an _optional_ into a variable, pass it to a function, and store it in a property.
 
 ```swift
 // [ Swift ]
 let string: String = ...
 let number: Int? = toInt(string)
+
+...
+
+// Errors can be handled lazily
+if let number = number {
+  ...
+} else {
+  // Error handling
+  ...
+}
 ```
 
 ---
 
 ### Difficulty of Using Optionals
 
-^ It wasn't all romantic. Once I started using _optionals_, my codes got full of them. It bothered me a lot.
+^ It wasn't all romantic. My codes soon got full of _optionals_.
 
 ^ With _optionals_, it isn't easy to even square a number
 
@@ -274,7 +288,7 @@ let sum = a + b // Compilation error
 
 ### Difficulty of Using Optionals
 
-^ Five lines for just `square` or `sum` with _optional binding_. It's awful.
+^ Five lines for each to just `square` or `sum` with _optional binding_. It's awful.
 
 ```swift
 // [ Swift ]
@@ -303,7 +317,7 @@ if let a = a, b = b {
 
 ### Functional Operations for Optionals
 
-^ Fortunately, Swift provided functional ways for such cases.
+^ Fortunately, Swift provides functional ways for such cases.
 
 ^ `map` is useful for `square`,
 
@@ -428,9 +442,32 @@ let person: Person? = curry(Person.init) <^> id
 
 ---
 
-### Optionals in Swift
+### Syntactic Sugars and Operators for Optionals
 
 ^ Additionally, Swift provided some syntactic sugars and operators to use _optionals_ easily.
+
+```swift
+// [ Swift ]
+//let foo: Optional<Foo> = ...
+let foo: Foo? = ...
+
+// let baz: Baz? = foo.flatMap { $0.bar }.flatMap { $0.baz }
+let baz: Baz? = foo?.bar?.baz
+
+// let quxOrNil: Qux? = ...
+// let qux: Qux
+// if let q = quxOrNil {
+//   qux = q
+// } else {
+//   qux = Qux()
+// }
+let quxOrNil: Qux? = ...
+let qux: Qux = quxOrNil ?? Qux()
+```
+
+---
+
+### Optionals in Swift
 
 - `Foo? == Optional<Foo>`
 - Forced Unwrapping: `!`
@@ -439,11 +476,13 @@ let person: Person? = curry(Person.init) <^> id
 - Optional chaining: `foo?.bar?.baz`
 - Nil coalescing operator: `??`
 
+^ `?` notations, _forced unwrapping_, `map`, `flatMap`, _optional chaining_, ...
+
 ^ Some languages had some of them. But combination of all made Swift different. It was safe, practical, theoretically subtle in a way that other languages couldn't achieve, and I found it fascinating.
 
 ---
 
-^ Tony Hoare, the inventor of null references, said, "I couldn't resist the temptation to put in a null reference, simply because it was so easy to implement."
+^ Tony Hoare, the inventor of null references, said this.
 
 > I couldn't resist the temptation to put in a null reference, simply because it was so easy to implement.
 -- Tony Hoare
@@ -464,7 +503,7 @@ let person: Person? = curry(Person.init) <^> id
 
 ^ Mainly, it leads two problems.
 
-^ 1. Hard to fix the bugs
+^ 1. Hard to debug.
 
 ^ 2. Can't branch operations by the causes of errors.
 
@@ -487,7 +526,7 @@ guard let sum = sum else {
 }
 ```
 
-^ even for such a simple operation, we want to know which of `a` or `b` failed to be parsed and what the input was.
+^ even for such a simple operation, we want to know which of `a` or `b` failed to be parsed and what was the input.
 
 ---
 
@@ -526,6 +565,26 @@ if let admin = json["isAdmin"].bool {
   // { "isAdmin": true }
   isAdmin = admin
 } else {
+  // [ true ]
+  // {}                => false
+  // { "isAdmin": 42 }
+  isAdmin = ...
+}
+```
+
+^  and fail for the others.
+
+---
+
+### Problems of Optionals
+
+```swift
+// [ Swift ]
+let isAdmin: Bool
+if let admin = json["isAdmin"].bool {
+  // { "isAdmin": true }
+  isAdmin = admin
+} else {
   // [ true ]          => error
   // {}                => false
   // { "isAdmin": 42 } => error
@@ -533,13 +592,13 @@ if let admin = json["isAdmin"].bool {
 }
 ```
 
-^  and fail for the others. `nil` cannot represent the difference.
+^  `nil` cannot represent the difference.
 
 ---
 
 ### Alternatives of Optionals
 
-^ I found three ways to solve the problems.
+^ I found three solutions.
 
 1. _Tuples_
 2. _Union types_
@@ -633,7 +692,7 @@ enum Optional<T> {
 }
 ```
 
-^ I thought it wasn't Swifty to use _unions_ to extend _optionals_.
+^ I thought it wasn't Swifty to extend _optionals_ by _unions_.
 
 ---
 
@@ -737,13 +796,14 @@ let baz: Baz|Error = foo?.bar?.baz
 
 ^ _Results_ seemed good. But soon I found some cases they did not work.
 
-^ This is an example.
+^ This is the example.
 
 ```swift
 // [ Swift ]
 let a: Result<Int, ErrorA> = ...
 let b: Result<Int, ErrorB> = ...
-let sum: Result<Int, ???> = a.flatMap { a in b.map { b in a + b } }
+let sum: Result<Int, ???>
+  = a.flatMap { a in b.map { b in a + b } }
 ```
 
 ^ What should the second type parameter be? It can be both `ErrorA` and `ErrorB`.
@@ -758,7 +818,8 @@ let sum: Result<Int, ???> = a.flatMap { a in b.map { b in a + b } }
 // [ Swift ]
 let a: Result<Int, ErrorA> = ...
 let b: Result<Int, ErrorB> = ...
-let sum: Result<Int, ErrorA|ErrorB> = a.flatMap { a in b.map { b in a + b } }
+let sum: Result<Int, ErrorA|ErrorB>
+  = a.flatMap { a in b.map { b in a + b } }
 ```
 
 ---
@@ -771,7 +832,8 @@ let sum: Result<Int, ErrorA|ErrorB> = a.flatMap { a in b.map { b in a + b } }
 // [ Swift ]
 let a: Result<Int, ErrorA> = ...
 let b: Result<Int, ErrorB> = ...
-let sum: Result<Int, Result<ErrorA, ErrorB>> = a.flatMap { a in b.map { b in a + b } }
+let sum: Result<Int, Result<ErrorA, ErrorB>>
+  = a.flatMap { a in b.map { b in a + b } }
 ```
 
 ^ It looked awful.
@@ -786,7 +848,8 @@ let sum: Result<Int, Result<ErrorA, ErrorB>> = a.flatMap { a in b.map { b in a +
 // [ Swift ]
 let a: Int|ErrorA = ...
 let b: Int|ErrorB = ...
-let sum: Int|ErrorA|ErrorB = a.flatMap { a in b.map { b in a + b } }
+let sum: Int|ErrorA|ErrorB
+  = a.flatMap { a in b.map { b in a + b } }
 ```
 
 ---
@@ -803,8 +866,9 @@ let lastName: String|ErrorC = ...
 let age: Int|ErrorD = ...
 let isAdmin: Bool| ErrorE = ...
 
-let person: Person|((((ErrorA|ErrorB)|ErrorC)|ErrorD)|ErrorE) =
-  curry(Person.init) <^> id <*> firstName <*> lastName <*> age <*> isAdmin
+let person: Person|(((ErrorA|ErrorB)|ErrorC)|ErrorD)|ErrorE
+  = curry(Person.init) <^> id <*> firstName
+    <*> lastName <*> age <*> isAdmin
 ```
 
 ---
@@ -833,13 +897,27 @@ switch person {
 
 ^ It was too complicated.
 
-^ I thought about it for a long time. And finally, I concluded that the second type parameter was not important in practice.
+^ I thought about it for a long time. And finally, =>
 
 ---
 
 ### Results without an Error Type
 
-^ If the `Result` is declared this way, it loses the type of the error and seems unsafe. But it's no problem for practical use.
+^ I concluded that the second type parameter of _results_ was not important in practice.
+
+```swift
+// [ Swift ]
+enum Result<T, E> {
+  case Success(T)
+  case Failure(E)
+}
+```
+
+---
+
+### Results without an Error Type
+
+^ If the `Result` is declared this way, it loses the type of the error and seems unsafe.
 
 ```swift
 // [ Swift ]
@@ -849,13 +927,13 @@ enum Result<T> {
 }
 ```
 
-^ In most cases, we don't need to branch operations into each type of errors. We just need to care about one or two exceptional ones.
+^ But, in most cases, we don't need to branch operations into each type of errors. We just need to care about one or two exceptional ones.
 
 ---
 
 ### Results without an Error Type
 
-^ Think about networking operations as an example. They fail in various ways. We want to retry the operation when it timeout. But not for "Forbidden", "Not found" and so on.
+^ Think about networking operations. They fail in various ways. We want to retry the operation when it timeout. But not for "Forbidden", "Not found" and so on.
 
 ^ Then we branch the operation into the cases of `Success`, `Timeout` and the others. We don't need to list up all of possible errors.
 
@@ -879,7 +957,7 @@ downloadJson(url) { json: Result<Json> in
 
 ### Results without an Error Type
 
-^ Also, it's true for the example of decoding JSONs. We want to recover only from `MissingKey`, and raise an error for the others.
+^ Also, it's true for decoding JSONs. We want to recover only from `MissingKey`, and raise an error for the others.
 
 ```swift
 // [ Swift ]
@@ -903,7 +981,7 @@ switch json["isAdmin"].bool {
 
 ### Results without an Error Type
 
-^ we can use _enumerations_ with _associated values_ which Swift has already provided.
+^ we can do it by _enumerations_ with _associated values_ which Swift has already provided.
 
 ```swift
 // [ Swift ]
@@ -953,7 +1031,7 @@ let sum: Int|
   = a.flatMap { a in b.map { b in a + b } }
 ```
 
-^ I'm not sure such _results_ are the best solution. The important thing is not to give up thinking. Keep looking. Don't settle. If all of us keep thinking, it just gets better and better. So keep looking. Don't settle.
+I'm afraid that such _results_ are the dark side. It makes _results_ untyped. But as far as I considered, it is the best way so far.
 
 ---
 
@@ -963,11 +1041,13 @@ let sum: Int|
 
 ^ My third story is about `try`.
 
-^ Swift 2.0 introduced the syntax similar to `try` / `catch` in Java. My first impression was bad. I didn't want to go back to the Java age. But as I learned it, I figured out it was pretty good.
+^ Swift 2.0 introduced the syntax similar to `try` / `catch` in Java.
 
 ---
 
 ### Automatic Propagation
+
+^ My first impression was bad. I didn't want to go back to the Java age. But as I learned it, I figured out it was pretty good.
 
 ^ The Swift core team explained why they employed the `try` / `catch` syntax in the document named "Error Handling Rationale and Proposal" ([^5]).
 
@@ -1065,9 +1145,9 @@ sum = do
   Just (a + b)
 ```
 
-^ But the core team said it is a kind of _automatic propagation_. It means we anyway need _automatic propagation_ for both functional and non-functional error handling to write it in a simple notation.
+^ The core team said it is a kind of _automatic propagation_. It means we anyway need _automatic propagation_ for both functional and non-functional error handling to write it in a simple notation.
 
-^ So I understood it was right to introduce _automatic propagation_ to Swift.
+^ So I understood it was good to introduce _automatic propagation_ to Swift.
 
 ---
 
@@ -1118,7 +1198,7 @@ int number = toInt(string); // No compilation error
 
 ```java
 // [ Java ]
-void foo() {
+void foo() { // What can `foo` throw?
   a(); // May throw an unchecked exception
   b(); // May throw an unchecked exception
   c(); // May throw an unchecked exception
@@ -1129,7 +1209,7 @@ void foo() {
 }
 ```
 
-^ Then, no one knows what errors can be actually thrown even by a function she implemented. It's so bad. Impossible to complete error handling, and we tend to be careless about error handling.
+^ Then, no one knows what errors can be actually thrown even by a function she implemented. It's so bad. Impossible to complete error handling, and we tend to be careless about it.
 
 ---
 
@@ -1137,11 +1217,11 @@ void foo() {
 
 ^ I thought it could be reproduced in Swift.
 
-^ Swift doesn't have something like _unchecked exceptions_. Swift forces us to add `throws` to functions which can `throw` an error. But once we add `throws` to a function, it's hard to know which line in the function can throw an error. And because we don't need to specify the type of the error, we get careless about the error type which our function `throws`.
+^ Swift doesn't have _unchecked exceptions_. But once we add `throws` to a function, it's hard to know which line in the function can throw an error. And because we don't need to specify the type of the error, we get careless about what kinds of errors the function `throws`.
 
 ```swift
 // [ Swift ]
-func foo() throws {
+func foo() throws { // What can `foo` throw?
   a() // Can throw an error?
   b() // Can throw an error?
   c() // Can throw an error?
@@ -1156,16 +1236,16 @@ func foo() throws {
 
 ### Marked Propagation
 
-^ But Swift forces to add the keyword `try` when we call a function which can `throw` an error. The core team called it _marked propagation_.
+^ But Swift forces to add the keyword `try` when we call a function with `throws`. The core team called it _marked propagation_.
 
 ```swift
 // [ Swift ]
 func foo() throws {
   a()
-  try b() // may throw an error
+  try b() // May throw an error
   c()
   d()
-  try e() // may throw an error
+  try e() // May throw an error
   f()
   g()
 }
@@ -1179,7 +1259,7 @@ func foo() throws {
 
 ### Marked Propagation
 
-^ _Marked propagation_ also helps us to read codes. With _automatic propagation_, it's hard to understand the control flow where it jumps to `catch` clauses. It's referred as an implicit control flow problem in the rationale. _Marked propagation_ makes it clearer.
+^ _Marked propagation_ also helps us to read codes. With _automatic propagation_, it's hard to understand the control flow from where it jumps to `catch` clauses. It's referred as an implicit control flow problem in the rationale. _Marked propagation_ makes it clearer.
 
 ```java
 // [ Java ]
@@ -1203,13 +1283,20 @@ do {
 }
 ```
 
-^ I thought it was evolutional.
+---
+
+### Marked Propagation
+
+- Careless about error types
+- Implicit control flow
+
+^ _Marked propagation_ is a solution for these. I thought it was evolutional.
 
 ---
 
-### Automatic Propagation for Optionals
+### Marked Automatic Propagation for Optionals
 
-^ Now we have a question. _Automatic propagation_ seems good. Why don't we use it for _optionals_?
+^ Now we have a question. _Marked automatic propagation_ seems good. Why don't we use it for _optionals_?
 
 ^ In the rationale, the core team said _optionals_ should be used for _simple domain errors_. They defined _simple domain errors_ as the errors which should be handled immediately. `toInt` was an example they gave. They concluded that the combination of _optionals_ and _manual propagation_ was suitable for those errors.
 
@@ -1224,9 +1311,9 @@ guard let number = toInt(string) {
 
 ---
 
-### Automatic Propagation for Optionals
+### Marked Automatic Propagation for Optionals
 
-^ But I think _automatic propagation_ is useful for _optionals_ too. We get _optionals_ not only as results of failable operations but also just as empty values. Our codes are full of _optionals_. Handling them manually costs a lot.
+^ But I think _automatic propagation_ is also useful for _optionals_. We get `nil` not only as errors but also just as empty values. Our codes are full of _optionals_. Handling them manually costs a lot.
 
 ^ I propose _automatic propagation_ for _optionals_ this way.
 
@@ -1254,15 +1341,15 @@ do {
 
 ^ In this syntax, `try` is a kind of _unwrapping_. We must `catch` it or return an optional value.
 
-^ I think this syntax is consistent with the one we have already had.
+^ I think this syntax is consistent.
 
 ---
 
-### Automatic Propagation for Results
+### Results and try
 
 ^ This can be extended to _results_.
 
-^ `throws` and _results_ can be theoretically interchanged. If we think `throws` is a syntactic sugar of returning a result value, =>
+^ `throws` and _results_ can be theoretically interchanged. If `throws` were a syntactic sugar of returning a result, =>
 
 ```swift
 // [ Swift ]
@@ -1280,9 +1367,9 @@ func toInt(string: String) -> Result<Int> {
 
 ---
 
-### Automatic Propagation for Results
+### Results and try
 
-^ we can connect the both worlds of `throws` and _results_ seamlessly.
+^ we could connect the both worlds of `throws` and _results_ seamlessly.
 
 ```swift
 // [ Swift ]
@@ -1308,31 +1395,29 @@ switch a.flatMap { a in b.map { b in a + b } } {
 }
 ```
 
-^ As I told before, _optionals_ and _results_ provide a more flexible way to handle errors. They can be handled lazily. So I think interoperability between them are important. Let me show an example.
+^ _Results_ provide a more flexible way to handle errors like _optionals_. They can be handled lazily. So interoperability between them are important.
+
+^ Let me show an example.
 
 ---
 
-### Automatic Propagation for Results
+### Results and try
 
-^ I implemented the library "ListK" ([^6]) which provides lazily evaluated `List`s. The `List` makes it possible to create an infinite list.
+^ I implemented the library "ListK" ([^6]) which provides lazily evaluated `List`s. It makes it possible to create infinite lists.
+
+^ In spite that they are infinite, we can `map` them because the operations are evaluated lazily.
 
 ```swift
 // [ Swift ]
 let infinite: List<Int> = List { $0 } // [0, 1, 2, 3, 4, ...]
-```
-
-^ In spite of it's infinite, we can `map` it because the operation is evaluated lazily.
-
-```swift
-// [ Swift ]
 let square: List<Int> = infinite.map { $0 * $0 } // [0, 1, 4, 9, 16, ...]
 ```
 
 ---
 
-### Automatic Propagation for Results
+### Results and try
 
-^ But, unlike `Array`'s `map`, it doesn't work well for a function with `throws`. This `map` operation never finishes.
+^ But, unlike `Array`'s `map`, it doesn't work well for a function with `throws`.
 
 ```swift
 // [ Swift ]
@@ -1349,46 +1434,48 @@ do {
 }
 ```
 
+^ This `map` operation never finishes because it cannot be evaluated lazily.
+
 ---
 
-### Automatic Propagation for Results
+### Results and try
 
-^ `map` with `rethrows` can be written as overloaded two methods by _results_.
+^ `map` with `rethrows` can be regarded as overloaded two methods by _results_.
 
 ```swift
 // [ Swift ]
 // By throws
-public func map<U>(transform: T throws -> U) rethrows -> List<U>
+func map<U>(transform: T throws -> U) rethrows -> List<U>
 
 // By `Result`
-public func map<U>(transform: T -> U) -> List<U>
-public func map<U>(transform: T -> Result<U>) -> Result<List<U>> // rethrows
+func map<U>(transform: T -> U) -> List<U>
+func map<U>(transform: T -> Result<U>) -> Result<List<U>> // throws
 ```
 
-^ The latter one cannot be evaluated lazily. It might not end for infinite `List`s.
+^ The last one cannot be evaluated lazily because it must decide `Success` or `Failure` immediately.
 
 ---
 
-### Automatic Propagation for Results
+### Results and try
 
-^ What I want for the `List` is this.
+^ What I want for my `List` is this.
 
 ```swift
 // [ Swift ]
 // By throws
-public func map<U>(transform: T throws -> U) rethrows -> List<U>
+func map<U>(transform: T throws -> U) rethrows -> List<U>
 
 // By `Result`
-public func map<U>(transform: T -> U) -> List<U>
-public func map<U>(transform: T -> Result<U>) -> Result<List<U>> // rethrows
-public func map<U>(transform: T -> Result<U>) -> List<Result<U>> // <- This
+func map<U>(transform: T -> U) -> List<U>
+func map<U>(transform: T -> Result<U>) -> Result<List<U>> // throws
+func map<U>(transform: T -> Result<U>) -> List<Result<U>> // <-This
 ```
 
 ---
 
-### Automatic Propagation for Results
+### Results and try
 
-^ Then we can `map` infinite `List`s with _automatic propagation_ by a function with `throws`.
+^ Then we can `map` infinite `List`s with _automatic propagation_ by a function with `throws` this way.
 
 ```swift
 // [ Swift ]
@@ -1414,9 +1501,11 @@ do {
 
 ---
 
-### Automatic Propagation for Results
+### Results and try
 
-^ To be fair, let me show my concern about my proposal. With Swift 2.x, we can get a compilation error at where we just omit `try`.
+^ Let me show you one downside of `throws` as `Result`.
+
+^ With Swift 2.x, we get compilation errors at where we just omit `try`.
 
 ```swift
 // Swift 2.x
@@ -1425,7 +1514,7 @@ let b = toInt(bString)
 let sum = a + b
 ```
 
-^ But with `throws` as `Result`, we get a compilation error where we try to use the result value.
+^ But with `throws` as `Result`, we get compilation errors where we try to use the result value.
 
 ```swift
 // Swift with my proposal
@@ -1434,15 +1523,15 @@ let b = toInt(bString)
 let sum = a + b // Compilation error here
 ```
 
-^ It is confusing and nonintuitive. But totally, I think `throws` as `Result` is better.
+^ It's confusing and nonintuitive. But totally, I think `throws` as `Result` is better.
 
 ---
 
 ### Asynchronous Operations and try
 
-^ Moreover, I think the `try` can be used not only for error handling. An example is asynchronous operations.
+^ Moreover, I think `try` can be used for other purposes besides error handling. An example is asynchronous operations.
 
-^ JavaScript natively supports the `Promise` for asynchronous operations. Its `then` method is theoretically equivalent to the `map` and the `flatMap`. I implemented the `Promise` library "PromiseK" ([^7]) with them for Swift.
+^ JavaScript natively supports the `Promise` for asynchronous operations. Its `then` method is theoretically equivalent to `map` and `flatMap`. I implemented the `Promise` library "PromiseK" ([^7]) with them for Swift.
 
 ```swift
 // [ Swift ]
@@ -1466,11 +1555,9 @@ let sum: Result<Int> = a.flatMap { a in b.map { b in a + b } }
 
 ### Asynchronous Operations and try
 
-^ The future JavaScript will support the `async` / `await` syntax based on the one in C#. That syntax is backed by the `Promise` and it makes it easier to write `then` chains.
+^ The future JavaScript will support the `async` / `await` syntax based on the one in C#. That syntax is backed by the `Promise` and makes it easier to write `then` chains.
 
-^ I think we will need to discuss the `async` / `await` syntax in Swift because asynchronous operations are one of the hottest topics in programming today.
-
-^ The `async` / `await` syntax in C# is used this way. The `Task` is the `Promise` in C#.
+^ I think we'll need to discuss the `async` / `await` syntax in Swift because asynchronous operations are one of the hottest topics in programming today.
 
 ```csharp
 // [ C# ]
@@ -1485,11 +1572,39 @@ async void PrintSum() {
 }
 ```
 
-^ If we had this syntax in Swift, it would be something like this.
+```swift
+// [ Swift ]
+func asyncGetInt(...) async -> Promise<Int> {
+  ...
+}
+
+func printSum() async {
+  let a: Int = await asyncGetInt(...)
+  let b: Int = await asyncGetInt(...)
+  print(a + b)
+}
+```
 
 ---
 
 ### Asynchronous Operations and try
+
+^ The `async` / `await` syntax in C# is used like the upper one. This `Task` class in C# is equivalent to the `Promise`.
+
+```csharp
+// [ C# ]
+async Task<int> AsyncGetInt(...) {
+  ...
+}
+
+async void PrintSum() {
+  int a = await AsyncGetInt(...);
+  int b = await AsyncGetInt(...);
+  Console.WriteLine(a + b);
+}
+```
+
+^ If we had this syntax in Swift, it would be something like the lower one.
 
 ```swift
 // [ Swift ]
@@ -1512,7 +1627,7 @@ func printSum() async {
 
 ```swift
 // [ Swift ]
-func asyncGetInt(...) async -> Int {
+func asyncGetInt(...) async -> Int { // <- Changed Here
   ...
 }
 
@@ -1523,33 +1638,9 @@ func printSum() async {
 }
 ```
 
-^ Now we can see the common relations between the `async` / `await` and the `throws` / `try`.
-
----
-
-### Asynchronous Operations and try
-
 ```swift
 // [ Swift ]
-func failableGetInt(...) throws -> Int {
-  ...
-}
-
-func printSum() throws {
-  let a: Int = try failableGetInt(...)
-  let b: Int = try failableGetInt(...)
-  print(a + b)
-}
-```
-
----
-
-### Asynchronous Operations and try
-
-```swift
-// [ Swift ]
-// async / await
-func asyncGetInt(...) async -> Int {
+func asyncGetInt(...) async -> Promise<Int> {
   ...
 }
 
@@ -1558,15 +1649,36 @@ func printSum() async {
   let b: Int = await asyncGetInt(...)
   print(a + b)
 }
+```
 
-// throws / try
-func failableGetInt(...) throws -> Int {
+^ Now we can see the common relations between `async` / `await` and `throws` / `try`.
+
+---
+
+### Asynchronous Operations and try
+
+```swift
+// [ Swift ]
+func asyncGetInt(...) async -> Int {     // async
   ...
 }
 
-func printSum() throws {
-  let a: Int = try failableGetInt(...)
-  let b: Int = try failableGetInt(...)
+func printSum() async {                  // async
+  let a: Int = await asyncGetInt(...)    // await
+  let b: Int = await asyncGetInt(...)    // await
+  print(a + b)
+}
+```
+
+```swift
+// [ Swift ]
+func failableGetInt(...) throws -> Int { // throws
+  ...
+}
+
+func printSum() throws {                 // throws
+  let a: Int = try failableGetInt(...)   // try
+  let b: Int = try failableGetInt(...)   // try
   print(a + b)
 }
 ```
@@ -1581,40 +1693,39 @@ func printSum() throws {
 
 ```swift
 // [ Swift ]
-// async / await
-func asyncGetInt(...) async -> Int {
+func asyncGetInt(...) async -> Int {     // async
   ...
 }
 
 do {
-  let a: Int = await asyncGetInt(...)
-  let b: Int = await asyncGetInt(...)
-  let sum: Int = a + b
-  ...
-}
-
-// Promise / try
-func asyncGetInt(...) -> Promise<Int> {
-  ...
-}
-
-do {
-  let a: Int = try asyncGetInt(...)
-  let b: Int = try asyncGetInt(...)
-  let sum: Int = a + b
-  ...
+  let a: Int = await asyncGetInt(...)    // await
+  let b: Int = await asyncGetInt(...)    // await
+  print(a + b)
 }
 ```
 
-^ It's good to have independent keywords like `async` because it makes easier to read the codes. But it needs other extra keywords endlessly even when we want to add some features based on a common concept.
+```swift
+// [ Swift ]
+func asyncGetInt(...) -> Promise<Int> {  // Promise
+  ...
+}
 
-^ I'm wondering which one is better. I wanted to show you the possibilities of the `try`.
+do {
+  let a: Int = try asyncGetInt(...)      // try
+  let b: Int = try asyncGetInt(...)      // try
+  print(a + b)
+}
+```
+
+^ It's good to have independent keywords like `async` because it makes easier to read the codes. But it needs other extra keywords endlessly when we want to add new features.
+
+^ I'm wondering which one is better. I wanted to show you the possibilities of `try`.
 
 ---
 
 ### Let's Discuss Error Handling
 
-^ I talked about various my ideas.
+^ I introduced my several ideas.
 
 - `Result<T>` instead of `Result<T, E>`
 - Automatic propagation for `Optional`s
@@ -1637,7 +1748,7 @@ do {
 
 # Stay Typed. Stay Practical.
 
-^ "Stay Typed. Stay Practical." [^9]
+^ "Stay Typed. Stay Practical." [^8]
 
 ^ I'm sure it makes the evolution as I talked through my presentation. Stay Typed. Stay Practical. And I have always wished that for Swift's designers. And now, as Swift became open source, it's us to make the Swift's evolution. I wish that for us.
 
@@ -1659,6 +1770,4 @@ do {
 
 [^7]: "PromiseK" [https://github.com/koher/PromiseK](https://github.com/koher/PromiseK)
 
-[^8]: "I’m in favor of typed throws, but only of a single type that conforms to ErrorType." -- Chris Lattner [https://lists.swift.org/pipermail/swift-evolution/Week-of-Mon-20160125/008057.html](https://lists.swift.org/pipermail/swift-evolution/Week-of-Mon-20160125/008057.html)
-
-[^9]: "Steve Jobs' Commencement address (2005)" [http://news.stanford.edu/news/2005/june15/jobs-061505.html](http://news.stanford.edu/news/2005/june15/jobs-061505.html)
+[^8]: "Steve Jobs' Commencement address (2005)" [http://news.stanford.edu/news/2005/june15/jobs-061505.html](http://news.stanford.edu/news/2005/june15/jobs-061505.html)
