@@ -4,7 +4,7 @@ autoscale: true
 
 ## Yuta Koshizawa @koher
 
-^ I am honored to be with you today at one of the finest Swift conferences in the world. Truth be told, I never attended a Swift conference and this is my first presentation about Swift. Today I want to tell you three stories of errors from my life. That's it. No big deal. Just three stories.
+^ I am honored to be with you today at one of the finest Swift conferences in the world. Truth be told, I've never attended a Swift conference and this is my first presentation about Swift. Today I want to tell you three stories about error handling. That's it. No big deal. Just three stories.
 
 ---
 
@@ -14,7 +14,7 @@ autoscale: true
 
 ^ The first story is about meeting the `Optional`s.
 
-^ I believe that _optional types_ are one of the best features in Swift. So why did I get it?
+^ I believe that _optionals_ are one of the best features in Swift. So why did I get it?
 
 ^ It started before Swift was born.
 
@@ -22,7 +22,8 @@ autoscale: true
 
 ### Error Handling in C
 
-^ My first programming language was C except I had played BASIC in my childhood. Error handling in C was something like this.
+^ My first actual programming language was C although I fiddled around BASIC in my childhood. Error handling in C was something like this.
+
 
 ```c
 // [ C ]
@@ -120,7 +121,7 @@ try {
 }
 ```
 
-^ I discussed this problem with my colleague at Qoncept, our company, and we concluded: we needed an explicit but easy way to ignore errors.
+^ I discussed this problem with my colleagues at Qoncept, our company, and we concluded: we needed an explicit but easy way to ignore errors.
 
 ---
 
@@ -187,7 +188,7 @@ if let number = toInt(string) {
 
 ^ How about ignoring errors?
 
-^ When I learned _forced unwrapping_, I was so surprised because it was the one exactly we wanted.
+^ When I learned _forced unwrapping_, I was so surprised because it was what we exactly wanted.
 
 ```swift
 // [ Swift ]
@@ -218,7 +219,7 @@ foo.updateBar(bar) // Warning
 
 ### Optionals for Error Handling
 
-^ Handing and ignoring errors can be done this way.
+^ Handling and ignoring errors can be done this way.
 
 ```swift
 // [ Swift ]
@@ -487,7 +488,7 @@ let qux: Qux = quxOrNil ?? Qux()
 > I couldn't resist the temptation to put in a null reference, simply because it was so easy to implement.
 -- Tony Hoare
 
-^ I think it is the dark side of programming. Falling to the dark side is easy. In exchange for a little unsafety, we can get free from the complication of types. But I want to stay Jedi. I believe it makes the evolution.
+^ I think it is the dark side of programming. Falling to the dark side is easy. In exchange for a little unsafety, we can get free from the complication of types. But I want to stay as a Jedi. I believe it makes the evolution.
 
 ^ _Optionals_ were the evolution. They are type safe and still practical. That's the reason why I think _optionals_ in Swift are great.
 
@@ -550,7 +551,7 @@ if let admin = json["isAdmin"].bool {
 }
 ```
 
-^ It can fail in three ways shown.
+^ It can fail in three ways as shown.
 
 ^ We want it to recover from only the second case =>
 
@@ -592,7 +593,7 @@ if let admin = json["isAdmin"].bool {
 }
 ```
 
-^  `nil` cannot represent the difference.
+^  `nil` cannot show the difference.
 
 ---
 
@@ -617,7 +618,7 @@ func toInt(string: String) -> (Int?, FormatError?) {
 }
 ```
 
-^ It returns a `FormatError` in addition to the `Int` value. Libraries in Go sometimes employ this way.
+^ It returns a `FormatError` in addition to the `Int` value. Libraries in Go sometimes applies this style.
 
 ---
 
@@ -1738,9 +1739,9 @@ do {
 
 ---
 
-^ I'm dreaming of the world in which everyone has been educated in programming. I had even tried to design my own programming language suitable for education.
+^ I'm dreaming of a world where everyone has been educated in programming. I had even tried to design my own programming language suitable for education.
 
-^ One morning, I met Swift. Swift seemed suited for my purpose. Now I plan to write a free online book for everyone to learn wide programming concepts, from "Hello, world!!" to monads, all in Swift.
+^ One morning, I met Swift. Swift seemed adequate for my purpose. Now I plan to write a free online book for everyone to learn wide programming concepts, from "Hello, world!!" to monads, all in Swift.
 
 ^ Through my experience of designing programming languages, I can say that it is a struggle against unsafety and complexity. It can be said in other words: =>
 
@@ -1750,7 +1751,7 @@ do {
 
 ^ "Stay Typed. Stay Practical." [^8]
 
-^ I'm sure it makes the evolution as I talked through my presentation. Stay Typed. Stay Practical. And I have always wished that for Swift's designers. And now, as Swift became open source, it's us to make the Swift's evolution. I wish that for us.
+^ I'm sure this will make the evolution with programming languages as I talked through my presentation. Stay Typed. Stay Practical. And I have always wished that for Swift's designers. And now, as Swift became open source, I wish that for us.
 
 ^ Stay Typed, Stay Practical.
 
