@@ -8,7 +8,7 @@ autoscale: true
 
 ---
 
-## The first story
+## The First Story
 
 ### Meeting the Optionals
 
@@ -493,7 +493,7 @@ let qux: Qux = quxOrNil ?? Qux()
 
 ---
 
-## The second story
+## The Second Story
 
 ### Success or Failure
 
