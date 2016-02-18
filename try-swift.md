@@ -4,7 +4,7 @@ autoscale: true
 
 ## Yuta Koshizawa @koher
 
-^ I am honored to be with you today at one of the finest Swift conferences in the world. To be honest, I have never attended a Swift conference and this is my first presentation about Swift. Today I want to tell you three stories about errors based on my experience. That's it. No big deal. Just three stories.
+^ I am honored to be with you today at one of the finest Swift conferences in the world. Truth be told, I've never attended a Swift conference and this is my first presentation about Swift. Today I want to tell you three stories about error handling. That's it. No big deal. Just three stories.
 
 ---
 
@@ -14,7 +14,7 @@ autoscale: true
 
 ^ The first story is about meeting the `Optional`s.
 
-^ I believe that _optional types_ are one of the best features in Swift. So why did I get it?
+^ I believe that _optionals_ are one of the best features in Swift. So why did I get it?
 
 ^ It started before Swift was born.
 
@@ -22,7 +22,7 @@ autoscale: true
 
 ### Error Handling in C
 
-^ Although I fiddled around with BASIC during my childhood, my first actual programming language was C. Error handling in C was something like this.
+^ My first actual programming language was C although I fiddled around BASIC in my childhood. Error handling in C was something like this.
 
 
 ```c
@@ -1146,7 +1146,7 @@ sum = do
   Just (a + b)
 ```
 
-^ The core team said it is a kind of _automatic propagation_. It means we anyways need _automatic propagation_ for both functional and non-functional error handling to write it in a simple notation.
+^ The core team said it is a kind of _automatic propagation_. It means we anyway need _automatic propagation_ for both functional and non-functional error handling to write it in a simple notation.
 
 ^ So I understood it was good to introduce _automatic propagation_ to Swift.
 
@@ -1210,7 +1210,7 @@ void foo() { // What can `foo` throw?
 }
 ```
 
-^ Then, no one knows what errors can be actually thrown even by a function she implemented. It's so bad. Impossible to complete error handling, and we tend to care less about it.
+^ Then, no one knows what errors can be actually thrown even by a function she implemented. It's so bad. Impossible to complete error handling, and we tend to be careless about it.
 
 ---
 
@@ -1751,7 +1751,7 @@ do {
 
 ^ "Stay Typed. Stay Practical." [^8]
 
-^ I'm sure this will make the evolution with programming languages as I talked through my presentation. Stay Typed. Stay Practical. And I have always wished that for Swift's designers. And now, as Swift became open source, it's on our shoulders to make the Swift's evolution. I wish that for us.
+^ I'm sure this will make the evolution with programming languages as I talked through my presentation. Stay Typed. Stay Practical. And I have always wished that for Swift's designers. And now, as Swift became open source, I wish that for us.
 
 ^ Stay Typed, Stay Practical.
 
