@@ -200,7 +200,7 @@ let number: Int = toInt(string)! // Ignores an error
 
 ### Optionals for Error Handling
 
-^ Unlike _exceptions_, _optionals_ don't work well for functions and methods which have side effects. But I think the `@warn_unused_result` attribute can be the solution.
+^ Unlike _exceptions_, _optionals_ don't work well for functions and methods without a return value. But I think the `@warn_unused_result` attribute can be the solution.
 
 ```swift
 // [ Swift ]
@@ -1071,7 +1071,7 @@ do {
 
 ### Automatic Propagation
 
-^ In the rationale, the core team defined _manual propagation_ and _automatic propagation_ of errors. With _manual propagation_, errors are handled by a control flow statement manually while it jumps automatically to the handler when an error occurs with _automatic propagation_.
+^ In the rationale, the core team defined _manual propagation_ and _automatic propagation_ of errors. With _manual propagation_, errors are handled by a control flow statement manually while, with _automatic propagation_, it jumps automatically to the handler when an error occurs.
 
 ```swift
 // [ Swift ]
@@ -1418,7 +1418,7 @@ let square: List<Int> = infinite.map { $0 * $0 } // [0, 1, 4, 9, 16, ...]
 
 ### Results and try
 
-^ But, unlike `Array`'s `map`, it doesn't work well for a function with `throws`.
+^ But it doesn't work well for a function with `throws`.
 
 ```swift
 // [ Swift ]
@@ -1441,42 +1441,44 @@ do {
 
 ### Results and try
 
-^ `map` with `rethrows` can be regarded as overloaded two methods by _results_.
+^ `map` with `throws` can be written this way by _results_.
 
 ```swift
 // [ Swift ]
 // By throws
-func map<U>(transform: T throws -> U) rethrows -> List<U>
+func map<U>(transform: T throws -> U) throws -> List<U>
+
 
 // By `Result`
-func map<U>(transform: T -> U) -> List<U>
-func map<U>(transform: T -> Result<U>) -> Result<List<U>> // throws
+func map<U>(transform: T -> Result<U>) -> Result<List<U>>
 ```
 
-^ The last one cannot be evaluated lazily because it must decide `Success` or `Failure` immediately.
+^ Because it must choose `Success` or `Failure` to return a _result_ value, it cannot be evaluated lazily.
+
+^ What I want for my `List` is  =>
 
 ---
 
 ### Results and try
 
-^ What I want for my `List` is this.
+^ this. This can be evaluated lazily.
 
 ```swift
 // [ Swift ]
 // By throws
-func map<U>(transform: T throws -> U) rethrows -> List<U>
+func map<U>(transform: T throws -> U) throws -> List<U>
+func map<U>(transform: T throws -> U) -> List<Result<U>>
 
 // By `Result`
-func map<U>(transform: T -> U) -> List<U>
-func map<U>(transform: T -> Result<U>) -> Result<List<U>> // throws
-func map<U>(transform: T -> Result<U>) -> List<Result<U>> // <-This
+func map<U>(transform: T -> Result<U>) -> Result<List<U>>
+func map<U>(transform: T -> Result<U>) -> List<Result<U>>
 ```
 
 ---
 
 ### Results and try
 
-^ Then we can `map` infinite `List`s with _automatic propagation_ by a function with `throws` this way.
+^ And it enables us to `map` infinite `List`s with _automatic propagation_ by a function with `throws` this way.
 
 ```swift
 // [ Swift ]
