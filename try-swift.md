@@ -1751,7 +1751,7 @@ do {
 
 ^ "Stay Typed. Stay Practical." [^8]
 
-^ I'm sure it makes the evolution as I talked through my presentation. Stay Typed. Stay Practical. And I have always wished that for Swift's designers. And now, as Swift became open source, it's us to make the Swift's evolution. I wish that for us.
+^ I'm sure this will make the evolution with programming languages as I talked through my presentation. Stay Typed. Stay Practical. And I have always wished that for Swift's designers. And now, as Swift became open source, it's on our shoulders to make the Swift's evolution. I wish that for us.
 
 ^ Stay Typed, Stay Practical.
 
