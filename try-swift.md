@@ -22,7 +22,7 @@ autoscale: true
 
 ### Error Handling in C
 
-^ My first actual programming language was C although I fiddled around BASIC in my childhood. Error handling in C was something like this.
+^ My first actual programming language was C although I fiddled around with BASIC in my childhood. Error handling in C was something like this.
 
 
 ```c
@@ -1032,7 +1032,7 @@ let sum: Int|
   = a.flatMap { a in b.map { b in a + b } }
 ```
 
-I'm afraid that such _results_ are the dark side. It makes _results_ untyped. But as far as I considered, it is the best way so far.
+^ I'm afraid that such _results_ are the dark side. It makes _results_ untyped. But as far as I considered, it is the best way so far.
 
 ---
 
