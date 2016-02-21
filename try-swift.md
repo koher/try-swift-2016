@@ -548,9 +548,9 @@ if let admin = json["isAdmin"].bool {
   // { "isAdmin": true }
   isAdmin = admin
 } else {
-  // [ true ]
-  // {}
-  // { "isAdmin": 42 }
+  // 1. [ true ]
+  // 2. {}
+  // 3. { "isAdmin": 42 }
   isAdmin = ...
 }
 ```
@@ -570,9 +570,9 @@ if let admin = json["isAdmin"].bool {
   // { "isAdmin": true }
   isAdmin = admin
 } else {
-  // [ true ]
-  // {}                => false
-  // { "isAdmin": 42 }
+  // 1. [ true ]
+  // 2. {}                => false
+  // 3. { "isAdmin": 42 }
   isAdmin = ...
 }
 ```
@@ -590,9 +590,9 @@ if let admin = json["isAdmin"].bool {
   // { "isAdmin": true }
   isAdmin = admin
 } else {
-  // [ true ]          => error
-  // {}                => false
-  // { "isAdmin": 42 } => error
+  // 1. [ true ]          => error
+  // 2. {}                => false
+  // 3. { "isAdmin": 42 } => error
   isAdmin = ...
 }
 ```
@@ -940,7 +940,7 @@ enum Result<T> {
 
 ### Results without an Error Type
 
-^ (11:22, 0:25) Think about networking operations. They fail in various ways. We want to retry the operation when it timeout. But not for "Forbidden", "Not found" and so on.
+^ (11:22, 0:25) Think about networking operations. They fail in various ways. We want to retry the operation when it gets timeout. But not for "Forbidden", "Not found" and so on.
 
 ^ Then we branch the operation into the cases of `Success`, `Timeout` and the others. We don't need to list up all possible errors.
 
@@ -964,7 +964,7 @@ downloadJson(url) { json: Result<Json> in
 
 ### Results without an Error Type
 
-^ (11:47, 0:17) Also, it's true for JSONs example. We want to recover only from `MissingKey`, and raise an error for the others.
+^ (11:47, 0:17) Also, it's true for JSONs' example. We want to recover only from `MissingKey`, and raise an error for the others.
 
 ```swift
 // [ Swift ]
