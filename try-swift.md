@@ -368,7 +368,7 @@ let id: String? = json["id"].string
 
 ### Functional Operations for Optionals
 
-^ (4:50, 0:09) All return values are optionals. How can we initialize a `Person` with these optional values?
+^ (4:50, 0:09) All return values are optionals. How can we initialize this `Person` with these optional values?
 
 ```swift
 // [ Swift ]
@@ -447,7 +447,7 @@ let person: Person? = curry(Person.init) <^> id
 
 ### Syntactic Sugars and Operators for Optionals
 
-^ (5:29, 0:10) Additionally, Swift provided some syntactic sugars and operators to use _optionals_ easily.
+^ (5:29, 0:10) Additionally, Swift provided these syntactic sugars and operators to use _optionals_ easily.
 
 ```swift
 // [ Swift ]
@@ -603,11 +603,13 @@ if let admin = json["isAdmin"].bool {
 
 ### Alternatives of Optionals
 
-^ (7:47, 0:05) I found three solutions.
+^ (7:47, 0:08) I found three solutions.
 
 1. _Tuples_
 2. _Union types_
 3. _Results_
+
+^ They are also discussed on the swift-evolution mailing list.
 
 ---
 
