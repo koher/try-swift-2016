@@ -343,7 +343,7 @@ let sum: Int? = a.flatMap { a in b.map { b in a + b } }
 
 ### Functional Operations for Optionals
 
-^ (4:34, 0:16) More optional values make it complicated. A typical case is decoding JSONs.
+^ (4:34, 0:16) More optional values make it complicated. A typical case is decoding models from a JSON.
 
 ^ Assume we have the APIs like SwiftyJSON ([^1]).
 
@@ -537,7 +537,7 @@ guard let sum = sum else {
 
 ### Problems of Optionals
 
-^ (7:18, 0:21) Another example is decoding JSONs.
+^ (7:18, 0:21) Another example is JSONs'.
 
 ^ If we want to get `false` when the key "isAdmin" is omitted in the JSON, how can we do it by _optionals_?
 
@@ -962,7 +962,7 @@ downloadJson(url) { json: Result<Json> in
 
 ### Results without an Error Type
 
-^ (11:47, 0:17) Also, it's true for decoding JSONs. We want to recover only from `MissingKey`, and raise an error for the others.
+^ (11:47, 0:17) Also, it's true for JSONs example. We want to recover only from `MissingKey`, and raise an error for the others.
 
 ```swift
 // [ Swift ]
