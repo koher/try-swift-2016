@@ -22,7 +22,9 @@ autoscale: true
 
 ### Error Handling in C
 
-^ (0:42, 0:17) My first actual programming language was C although I fiddled around with BASIC in my childhood. Error handling in C was something like this.
+^ (0:42, 0:17) My first actual programming language was C although I fiddled around with BASIC in my childhood.
+
+^ Error handling in C was something like this.
 
 
 ```c
@@ -39,7 +41,7 @@ if (numbers == NULL) {
 
 ### Error Handling in C
 
-^ (0:59, 0:10) The C compiler never warns or fails with codes without error handling even if we forget to handle errors.
+^ (0:59, 0:07) The C compiler never warns or fails even if we forget to handle errors.
 
 ```c
 // [ C ]
@@ -169,7 +171,7 @@ let number: Int = toInt(string) // Compilation error
 
 ### Optionals for Error Handling
 
-^ (2:47, 0:06)We can handle errors using _optional binding_.
+^ (2:47, 0:06) We can handle errors using _optional binding_.
 
 ```swift
 // [ Swift ]
@@ -289,7 +291,7 @@ let sum = a + b // Compilation error
 
 ### Difficulty of Using Optionals
 
-^ (4:10, 0:10) Five lines for each to just `square` or `sum` with _optional binding_. It's awful.
+^ (4:10, 0:06) Five lines for each to just `square` or `sum`. It's awful.
 
 ```swift
 // [ Swift ]
@@ -487,6 +489,8 @@ let qux: Qux = quxOrNil ?? Qux()
 
 > I couldn't resist the temptation to put in a null reference, simply because it was so easy to implement.
 -- Tony Hoare
+
+^ I couldn't resist the temptation to put in a null reference, simply because it was so easy to implement.
 
 ^ I think it is the dark side of programming. Falling to the dark side is easy. In exchange for a little unsafety, we can get free from the complication of types. But I want to stay as a Jedi. I believe it makes the evolution.
 
