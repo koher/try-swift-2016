@@ -10,7 +10,7 @@ def foo(line):
     return time, line
 
 new_lines = []
-with open('try-swift.md') as file:
+with open('slides.md') as file:
     timed_lines = map(foo, file.readlines())
     current_time = 0
     for time, line in timed_lines:
@@ -22,5 +22,5 @@ with open('try-swift.md') as file:
         else:
             new_lines.append(line)
 
-with open('try-swift.md', 'w') as file:
+with open('slides.md', 'w') as file:
     file.writelines(new_lines)
