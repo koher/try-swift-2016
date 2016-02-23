@@ -293,7 +293,7 @@ let sum = a + b // Compilation error
 
 ### Difficulty of Using Optionals
 
-^ (4:15, 0:06) Five lines for each to just `square` or `sum`. It's awful.
+^ (4:15, 0:06) Five lines for each by _optional binding_. It's awful.
 
 ```swift
 // [ Swift ]
@@ -370,7 +370,7 @@ let id: String? = json["id"].string
 
 ### Functional Operations for Optionals
 
-^ (4:51, 0:09) All return values are optionals. How can we initialize this `Person` with these optional values?
+^ (4:51, 0:09) So, all return values are optionals. How can we initialize this `Person` with these optional values?
 
 ```swift
 // [ Swift ]
@@ -449,7 +449,7 @@ let person: Person? = curry(Person.init) <^> id
 
 ### Syntactic Sugars and Operators for Optionals
 
-^ (5:30, 0:10) Additionally, Swift provided these syntactic sugars and operators to use _optionals_ easily.
+^ (5:30, 0:10) Additionally, Swift provided these syntactic sugars and operators to make it easy to use _optionals_.
 
 ```swift
 // [ Swift ]
