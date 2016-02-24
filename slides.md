@@ -1305,11 +1305,16 @@ do {
 
 ^ (17:27, 0:22) Now we have a question. _Marked automatic propagation_ seems good. Why don't we use it for _optionals_?
 
-^ In the rationale, the core team said _optionals_ with _manual propagation_ should be used for _simple domain errors_. `toInt` was an example they gave.
+^ In the rationale, the core team says _optionals_ should be used for _simple domain errors_ and _manual propagation_ is suitable for them. `toInt` was an example they gave.
 
 ```swift
 // [ Swift ]
-// Simple domain error with manual propagation
+// Optionals for a simple domain error
+func toInt(string: String) -> Int? {
+  ...
+}
+
+// Manual propagation
 guard let number = toInt(string) {
   // Error handling here
   ...
