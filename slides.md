@@ -1258,7 +1258,7 @@ func foo() throws {
 }
 ```
 
-^ With `try`, it's obvious which lines can throw an error. And it makes much easier to check what kinds of errors can be thrown in the function.
+^ With `try`, it's obvious which lines can throw an error. And it makes it much easier to check what kinds of errors can be thrown in the function.
 
 ^ If `throws` were typed, it would be safer. But I think _marked propagation_ removed the worst part of untyped `throws`, and untyped `throws` is a reasonable trade-off between type safety and simplicity.
 
