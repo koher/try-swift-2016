@@ -57,7 +57,7 @@ int *numbers = (int *)malloc(sizeof(int) * 42);
 
 ^ (1:08, 0:25) After that, I learned _checked exceptions_ in Java, which forced programmers to handle errors.
 
-^ Think about a function to parse an integer from a string.
+^ For example, think about a function to parse an integer from a string, which throws a `FormatException` when the string isn't parsed correctly.
 
 ```java
 // [ Java ]
@@ -66,8 +66,6 @@ static int toInt(String string)
     ...
 }
 ```
-
-^ It returns an integer when the string is parsed correctly, or fails for strings whose formats are illegal. It means it throws a `FormatException`.
 
 ```java
 // [ Java ]
@@ -204,7 +202,7 @@ let number: Int = toInt(string)! // Ignores an error
 
 ### Optionals for Error Handling
 
-^ (3:08, 0:16) Unlike _exceptions_, _optionals_ don't work well for functions with side effect, typically without a return value. But I think the `@warn_unused_result` attribute can be the solution.
+^ (3:08, 0:16) Unlike _exceptions_, _optionals_ don't work well for functions with side effects, often without a return value. But I think the `@warn_unused_result` attribute can be the solution.
 
 ```swift
 // [ Swift ]
@@ -1154,7 +1152,7 @@ sum = do
   Just (a + b)
 ```
 
-^ The core team said it is a kind of _automatic propagation_. It means we anyway need _automatic propagation_ for both functional and non-functional error handling to write it in a simple notation.
+^ The core team said it was a kind of _automatic propagation_. It means we anyway need _automatic propagation_ for both functional and non-functional error handling to write it in a simple notation.
 
 ^ So I understood it was good to introduce _automatic propagation_ to Swift.
 
@@ -1162,9 +1160,9 @@ sum = do
 
 ### Marked Propagation
 
-^ (14:49, 0:17) I also worried about untyped `throws`.
+^ (14:49, 0:20) I also worried about untyped `throws`.
 
-^ We can't specify types of errors with `throws` so far. I think it's reasonable as well as for _results_. What I was worried about was another thing.
+^ We can't specify types of errors with a `throws` clause so far. Although it seems unsafe, I think it's reasonable for the same reason as for _result types_. What I was worried about was another thing.
 
 ```swift
 // [ Swift ]
@@ -1177,7 +1175,7 @@ func toInt(string: String) throws FormatError -> Int { // Compilation error
 
 ### Marked Propagation
 
-^ (15:06, 0:16) Java has _unchecked exceptions_. The compiler reports nothing even if we don't handle them. C# and various dynamically typed languages have a similar mechanism too.
+^ (15:09, 0:16) Java has _unchecked exceptions_. The compiler reports nothing even if we don't handle them. C# and various dynamically typed languages have a similar mechanism too.
 
 ```java
 // [ Java ]
@@ -1203,7 +1201,7 @@ int number = toInt(string); // No compilation error
 
 ### Marked Propagation
 
-^ (15:22, 0:23) In those languages, every line in a code might throw an unexpected error.
+^ (15:25, 0:23) In those languages, every line in a code might throw an unexpected error.
 
 ```java
 // [ Java ]
@@ -1224,7 +1222,7 @@ void foo() { // What can `foo` throw?
 
 ### Marked Propagation
 
-^ (15:45, 0:27) I thought it could be reproduced in Swift.
+^ (15:48, 0:27) I thought it could be reproduced in Swift.
 
 ^ Swift doesn't have _unchecked exceptions_. But once we add `throws` to a function, it's hard to know which line in the function can throw an error. And because we don't need to specify the type of the error, we get careless about what kinds of errors the function `throws`.
 
@@ -1245,7 +1243,7 @@ func foo() throws { // What can `foo` throw?
 
 ### Marked Propagation
 
-^ (16:12, 0:38) But Swift forces to add the keyword `try` when we call a function with `throws`. The core team called it _marked propagation_.
+^ (16:15, 0:38) But Swift forces to add the keyword `try` when we call a function with `throws`. The core team called it _marked propagation_.
 
 ```swift
 // [ Swift ]
@@ -1268,7 +1266,7 @@ func foo() throws {
 
 ### Marked Propagation
 
-^ (16:50, 0:25) _Marked propagation_ also helps us to read codes. With _automatic propagation_, it's hard to understand the control flow from where it jumps to `catch` clauses. It's referred as an implicit control flow problem in the rationale. _Marked propagation_ makes it clearer.
+^ (16:53, 0:25) _Marked propagation_ also helps us to read codes. With _automatic propagation_, it's hard to understand the control flow from where it jumps to `catch` clauses. It's referred as an implicit control flow problem in the rationale. _Marked propagation_ makes it clearer.
 
 ```java
 // [ Java ]
@@ -1299,13 +1297,13 @@ do {
 - Careless about error types
 - Implicit control flow
 
-^ (17:15, 0:09) _Marked propagation_ is a solution for these. I thought it was evolutional.
+^ (17:18, 0:09) _Marked propagation_ is a solution for these. I thought it was evolutional.
 
 ---
 
 ### Marked Automatic Propagation for Optionals
 
-^ (17:24, 0:22) Now we have a question. _Marked automatic propagation_ seems good. Why don't we use it for _optionals_?
+^ (17:27, 0:22) Now we have a question. _Marked automatic propagation_ seems good. Why don't we use it for _optionals_?
 
 ^ In the rationale, the core team said _optionals_ with _manual propagation_ should be used for _simple domain errors_. `toInt` was an example they gave.
 
@@ -1322,7 +1320,7 @@ guard let number = toInt(string) {
 
 ### Marked Automatic Propagation for Optionals
 
-^ (17:46, 0:39) But I think _automatic propagation_ is also useful for _optionals_. We get `nil` not only as errors but also just as empty values. Our codes are full of _optionals_. Handling them manually costs a lot.
+^ (17:49, 0:39) But I think _automatic propagation_ is also useful for _optionals_. We get `nil` not only as errors but also just as empty values. Our codes are full of _optionals_. Handling them manually costs a lot.
 
 ^ I propose _automatic propagation_ for _optionals_ this way.
 
@@ -1356,7 +1354,7 @@ do {
 
 ### Results and try
 
-^ (18:25, 0:13) This can be extended to _results_.
+^ (18:28, 0:13) This can be extended to _results_.
 
 ^ `throws` and _results_ can be theoretically interchanged. If `throws` were a syntactic sugar of returning a result, =>
 
@@ -1378,7 +1376,7 @@ func toInt(string: String) -> Result<Int> {
 
 ### Results and try
 
-^ (18:38, 0:22) we could connect the both worlds of `throws` and _results_ seamlessly.
+^ (18:41, 0:22) we could connect the both worlds of `throws` and _results_ seamlessly.
 
 ```swift
 // [ Swift ]
@@ -1412,7 +1410,7 @@ switch a.flatMap { a in b.map { b in a + b } } {
 
 ### Results and try
 
-^ (19:00, 0:20) I implemented the library "ListK" ([^6]) which provides lazily evaluated `List`s. It makes it possible to create infinite lists.
+^ (19:03, 0:20) I implemented the library "ListK" ([^6]) which provides lazily evaluated `List`s. It makes it possible to create infinite lists.
 
 ^ In spite that they are infinite, we can `map` them because the operations are evaluated lazily.
 
@@ -1426,7 +1424,7 @@ let square: List<Int> = infinite.map { $0 * $0 } // [0, 1, 4, 9, 16, ...]
 
 ### Results and try
 
-^ (19:20, 0:13) But it doesn't work well for a function with `throws`.
+^ (19:23, 0:13) But it doesn't work well for a function with `throws`.
 
 ```swift
 // [ Swift ]
@@ -1449,7 +1447,7 @@ do {
 
 ### Results and try
 
-^ (19:33, 0:16) `map` with `throws` can be written this way by _results_.
+^ (19:36, 0:16) `map` with `throws` can be written this way by _results_.
 
 ```swift
 // [ Swift ]
@@ -1469,7 +1467,7 @@ func map<U>(transform: T -> Result<U>) -> Result<List<U>>
 
 ### Results and try
 
-^ (19:49, 0:05) this. This can be evaluated lazily.
+^ (19:52, 0:05) this. This can be evaluated lazily.
 
 ```swift
 // [ Swift ]
@@ -1486,7 +1484,7 @@ func map<U>(transform: T -> Result<U>) -> List<Result<U>>
 
 ### Results and try
 
-^ (19:54, 0:11) And it enables us to `map` infinite `List`s with _automatic propagation_ by a function with `throws` this way.
+^ (19:57, 0:11) And it enables us to `map` infinite `List`s with _automatic propagation_ by a function with `throws` this way.
 
 ```swift
 // [ Swift ]
@@ -1514,7 +1512,7 @@ do {
 
 ### Results and try
 
-^ (20:05, 0:28) Let me show you one downside of `throws` as `Result`.
+^ (20:08, 0:28) Let me show you one downside of `throws` as `Result`.
 
 ^ With Swift 2.x, we get compilation errors at where we just omit `try`.
 
@@ -1540,7 +1538,7 @@ let sum = a + b // Compilation error here
 
 ### Asynchronous Operations and try
 
-^ (20:33, 0:37) Moreover, I think `try` can be used for other purposes besides error handling. An example is asynchronous operations.
+^ (20:36, 0:37) Moreover, I think `try` can be used for other purposes besides error handling. An example is asynchronous operations.
 
 ^ JavaScript natively supports the `Promise` for asynchronous operations. Its `then` method is theoretically equivalent to `map` and `flatMap`. I implemented the `Promise` library "PromiseK" ([^7]) with them for Swift.
 
@@ -1566,7 +1564,7 @@ let sum: Result<Int> = a.flatMap { a in b.map { b in a + b } }
 
 ### Asynchronous Operations and try
 
-^ (21:10, 0:28) The future JavaScript will support the `async` / `await` syntax based on the one in C#. That syntax is backed by the `Promise` and makes it easier to write `then` chains.
+^ (21:13, 0:28) The future JavaScript will support the `async` / `await` syntax based on the one in C#. That syntax is backed by the `Promise` and makes it easier to write `then` chains.
 
 ^ I think we'll need to discuss the `async` / `await` syntax in Swift because asynchronous operations are one of the hottest topics in programming today.
 
@@ -1600,7 +1598,7 @@ func printSum() async {
 
 ### Asynchronous Operations and try
 
-^ (21:38, 0:24) The `async` / `await` syntax in C# is used like the upper one. This `Task` class in C# is equivalent to the `Promise`.
+^ (21:41, 0:24) The `async` / `await` syntax in C# is used like the upper one. This `Task` class in C# is equivalent to the `Promise`.
 
 ```csharp
 // [ C# ]
@@ -1662,7 +1660,7 @@ func printSum() async {
 }
 ```
 
-^ (22:02, 0:09) Now we can see the common relations between `async` / `await` and `throws` / `try`.
+^ (22:05, 0:09) Now we can see the common relations between `async` / `await` and `throws` / `try`.
 
 ---
 
@@ -1694,13 +1692,13 @@ func printSum() throws {                 // throws
 }
 ```
 
-^ (22:11, 0:24) The `async` / `await` syntax is backed by the `Promise`, and by my proposal, the `throws` / `try` syntax is backed by the `Result`. It perfectly makes sense. `async`, `await`, `Promise` and `throws`, `try`, `Result` represent a common concept only different in a point: asynchronous or failable.
+^ (22:14, 0:24) The `async` / `await` syntax is backed by the `Promise`, and by my proposal, the `throws` / `try` syntax is backed by the `Result`. It perfectly makes sense. `async`, `await`, `Promise` and `throws`, `try`, `Result` represent a common concept only different in a point: asynchronous or failable.
 
 ---
 
 ### Asynchronous Operations and try
 
-^ (22:35, 0:32) It's possible to unite them by using `try` as `await` and just returning `Promise` values.
+^ (22:38, 0:32) It's possible to unite them by using `try` as `await` and just returning `Promise` values.
 
 ```swift
 // [ Swift ]
@@ -1736,7 +1734,7 @@ do {
 
 ### Let's Discuss Error Handling
 
-^ (23:07, 0:28) I introduced my several ideas.
+^ (23:10, 0:28) I introduced my several ideas.
 
 - `Result<T>` instead of `Result<T, E>`
 - Automatic propagation for `Optional`s
@@ -1751,7 +1749,7 @@ do {
 
 ---
 
-^ (23:35, 0:48) I'm dreaming of a world where everyone has been educated in programming. I had even tried to design my own programming language suitable for education.
+^ (23:38, 0:48) I'm dreaming of a world where everyone has been educated in programming. I had even tried to design my own programming language suitable for education.
 
 ^ One morning, I met Swift. Swift seemed adequate for my purpose. Now I plan to write a free online book for everyone to learn wide programming concepts, from "Hello, world!!" to monads, all in Swift.
 
@@ -1761,7 +1759,7 @@ do {
 
 # Stay Typed. Stay Practical.
 
-^ (24:23, 0:28) "Stay Typed. Stay Practical." [^8]
+^ (24:26, 0:28) "Stay Typed. Stay Practical." [^8]
 
 ^ I'm sure this will make the evolution as I talked through my presentation. Stay Typed. Stay Practical. And I have always wished that for Swift's designers. And now, as Swift became open source, I wish that for us.
 
