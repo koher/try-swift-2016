@@ -345,7 +345,7 @@ let sum: Int? = a.flatMap { a in b.map { b in a + b } }
 
 ^ (4:35, 0:16) More optional values make it complicated. A typical case is decoding models from a JSON.
 
-^ Assume we have the APIs like SwiftyJSON ([^1]).
+^ Assume we have the APIs like SwiftyJSON's ([^1]).
 
 ```swift
 // [ Swift ]
