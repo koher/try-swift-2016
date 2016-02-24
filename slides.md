@@ -1224,7 +1224,7 @@ void foo() { // What can `foo` throw?
 
 ^ (15:48, 0:27) I thought it could be reproduced in Swift.
 
-^ Swift doesn't have _unchecked exceptions_. But once we add `throws` to a function, it's hard to know which line in the function can throw an error. And because we don't need to specify the types of the errors, we get careless about what kinds of errors the function `throws`.
+^ Swift doesn't have _unchecked exceptions_. But once we add `throws` to a function, it's hard to know which lines in the function can throw an error. And because we don't need to specify the types of the errors, we get careless about what kinds of errors the function `throws`.
 
 ```swift
 // [ Swift ]
