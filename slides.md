@@ -1297,7 +1297,7 @@ do {
 - Careless about error types
 - Implicit control flow
 
-^ (17:18, 0:09) _Marked propagation_ is a solution for these two problems. I thought it was evolutional.
+^ (17:18, 0:09) So, _Marked propagation_ is a solution for these two problems. I thought it was evolutional.
 
 ---
 
