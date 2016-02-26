@@ -14,7 +14,7 @@ autoscale: true
 
 ^ (0:27, 0:15) The first story is about meeting the `Optional`s.
 
-^ I believe that _optionals_ are one of the best features in Swift. So why did I get it?
+^ I think that _optionals_ are one of the best features in Swift. So why did I get it?
 
 ^ It started before Swift was born.
 
@@ -1489,7 +1489,7 @@ func map<U>(transform: T -> Result<U>) -> List<Result<U>>
 
 ### Results and try
 
-^ (19:57, 0:11) And it enables us to `map` infinite `List`s with _automatic propagation_ by a function with `throws` this way.
+^ (19:57, 0:11) And it enables us to `map` infinite `List`s by a function with `throws` this way.
 
 ```swift
 // [ Swift ]
@@ -1497,21 +1497,23 @@ func toInt(string: String) throws -> Int {
   ...
 }
 
+let a: List<String> = ... // ["0", "1", "2", ...]
+let b: List<Result<Int>> = strings.map(transform: toInt)
+  // [Result(0), Result(1), Result(2), ...]
+let c: List<Result<Int>> = numbers.take(10)
+  // [Result(0), Result(1), Result(2), ..., Result(9)]
+let d: Result<List<Int>> = sequence(first10)
+  // Result([0, 1, 2, ..., 9])
 do {
-  let a: List<String> = ... // ["0", "1", "2", ...]
-  let b: List<Result<Int>> = strings.map(transform: toInt)
-    // [Result(0), Result(1), Result(2), ...]
-  let c: List<Result<Int>> = numbers.take(10)
-    // [Result(0), Result(1), ..., Result(9)]
-  let d: Result<List<Int>> = sequence(first10)
-    // Result([0, 1, ..., 9])
-  let e: List<Int> = try d // [0, 1, ..., 9]
+  let e: List<Int> = try d // [0, 1, 2, ..., 9]
   ...
 } catch let error {
   // Handling `FormatError`
   ...
 }
 ```
+
+^ `throws` as `Result` made it possible.
 
 ---
 
