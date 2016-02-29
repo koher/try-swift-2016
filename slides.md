@@ -1472,7 +1472,7 @@ func map<U>(transform: T -> Result<U>) -> Result<List<U>>
 
 ### Results and try
 
-^ (19:52, 0:05) this. This can be evaluated lazily.
+^ (19:52, 0:07) this. `Result` and `List` are flipped. This can be evaluated lazily.
 
 ```swift
 // [ Swift ]
@@ -1489,7 +1489,7 @@ func map<U>(transform: T -> Result<U>) -> List<Result<U>>
 
 ### Results and try
 
-^ (19:57, 0:11) And it enables us to `map` infinite `List`s by a function with `throws` this way.
+^ (19:59, 0:11) And it enables us to `map` infinite `List`s by a function with `throws` this way.
 
 ```swift
 // [ Swift ]
@@ -1519,7 +1519,7 @@ do {
 
 ### Results and try
 
-^ (20:08, 0:28) Let me show you one downside of `throws` as `Result`.
+^ (20:10, 0:28) Let me show you one downside of `throws` as `Result`.
 
 ^ With Swift 2.x, we get compilation errors at where we just omit `try`.
 
@@ -1545,7 +1545,7 @@ let sum = a + b // Compilation error here
 
 ### Asynchronous Operations and try
 
-^ (20:36, 0:37) Moreover, I think `try` can be used for other purposes besides error handling. An example is asynchronous operations.
+^ (20:38, 0:37) Moreover, I think `try` can be used for other purposes besides error handling. An example is asynchronous operations.
 
 ^ JavaScript natively supports the `Promise` for asynchronous operations. Its `then` method is theoretically equivalent to `map` and `flatMap`. I implemented the `Promise` library "PromiseK" ([^7]) with them for Swift.
 
@@ -1571,7 +1571,7 @@ let sum: Result<Int> = a.flatMap { a in b.map { b in a + b } }
 
 ### Asynchronous Operations and try
 
-^ (21:13, 0:28) The future JavaScript will support the `async` / `await` syntax based on the one in C#. That syntax is backed by the `Promise` and makes it easier to write `then` chains.
+^ (21:15, 0:28) The future JavaScript will support the `async` / `await` syntax based on the one in C#. That syntax is backed by the `Promise` and makes it easier to write `then` chains.
 
 ^ I think we'll need to discuss the `async` / `await` syntax in Swift because asynchronous operations are one of the hottest topics in programming today.
 
@@ -1605,7 +1605,7 @@ func printSum() async {
 
 ### Asynchronous Operations and try
 
-^ (21:41, 0:24) The `async` / `await` syntax in C# is used like the upper one. This `Task` class in C# is equivalent to the `Promise`.
+^ (21:43, 0:24) The `async` / `await` syntax in C# is used like the upper one. This `Task` class in C# is equivalent to the `Promise`.
 
 ```csharp
 // [ C# ]
@@ -1667,7 +1667,7 @@ func printSum() async {
 }
 ```
 
-^ (22:05, 0:09) Now we can see the common relations between `async` / `await` and `throws` / `try`.
+^ (22:07, 0:09) Now we can see the common relations between `async` / `await` and `throws` / `try`.
 
 ---
 
@@ -1699,13 +1699,13 @@ func printSum() throws {                 // throws
 }
 ```
 
-^ (22:14, 0:24) The `async` / `await` syntax is backed by the `Promise`, and by my proposal, the `throws` / `try` syntax is backed by the `Result`. It perfectly makes sense. `async`, `await`, `Promise` and `throws`, `try`, `Result` represent a common concept only different in a point: asynchronous or failable.
+^ (22:16, 0:24) The `async` / `await` syntax is backed by the `Promise`, and by my proposal, the `throws` / `try` syntax is backed by the `Result`. It perfectly makes sense. `async`, `await`, `Promise` and `throws`, `try`, `Result` represent a common concept only different in a point: asynchronous or failable.
 
 ---
 
 ### Asynchronous Operations and try
 
-^ (22:38, 0:32) It's possible to unite them by using `try` as `await` and just returning `Promise` values.
+^ (22:40, 0:32) It's possible to unite them by using `try` as `await` and just returning `Promise` values.
 
 ```swift
 // [ Swift ]
@@ -1741,7 +1741,7 @@ do {
 
 ### Let's Discuss Error Handling
 
-^ (23:10, 0:28) I introduced my several ideas.
+^ (23:12, 0:28) I introduced my several ideas.
 
 - `Result<T>` instead of `Result<T, E>`
 - Automatic propagation for `Optional`s
@@ -1756,7 +1756,7 @@ do {
 
 ---
 
-^ (23:38, 0:48) I'm dreaming of a world where everyone has been educated in programming. I had even tried to design my own programming language suitable for education.
+^ (23:40, 0:48) I'm dreaming of a world where everyone has been educated in programming. I had even tried to design my own programming language suitable for education.
 
 ^ One morning, I met Swift. Swift seemed adequate for my purpose. Now I plan to write a free online book for everyone to learn wide programming concepts, from "Hello, world!!" to monads, all in Swift.
 
@@ -1766,7 +1766,7 @@ do {
 
 # Stay Typed. Stay Practical.
 
-^ (24:26, 0:28) "Stay Typed. Stay Practical." [^8]
+^ (24:28, 0:28) "Stay Typed. Stay Practical." [^8]
 
 ^ I'm sure this will make the evolution as I talked through my presentation. Stay Typed. Stay Practical. And I have always wished that for Swift's designers. And now, as Swift became open source, I wish that for us.
 
