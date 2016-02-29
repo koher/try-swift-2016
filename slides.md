@@ -1361,7 +1361,7 @@ do {
 
 ^ (18:28, 0:13) This can be extended to _results_.
 
-^ `throws` and _results_ can be theoretically interchanged. If `throws` were a syntactic sugar of returning a result, =>
+^ _results_  and `throws` can be theoretically interchanged. If `throws` were a syntactic sugar of returning a result value, =>
 
 ```swift
 // [ Swift ]
@@ -1381,7 +1381,7 @@ func toInt(string: String) -> Result<Int> {
 
 ### Results and try
 
-^ (18:41, 0:22) we could connect the both worlds of `throws` and _results_ seamlessly.
+^ (18:41, 0:22) we could connect the both worlds of _results_ and `throws` seamlessly.
 
 ```swift
 // [ Swift ]
@@ -1407,7 +1407,7 @@ switch a.flatMap { a in b.map { b in a + b } } {
 }
 ```
 
-^ _Results_ provide a more flexible way to handle errors like _optionals_. They can be handled lazily. So interoperability between them are important.
+^ _Results_ provide a more flexible way to handle errors like _optionals_. They can be handled lazily. So interoperability between them is important.
 
 ^ Let me show an example.
 
@@ -1417,7 +1417,7 @@ switch a.flatMap { a in b.map { b in a + b } } {
 
 ^ (19:03, 0:20) I implemented the library "ListK" ([^6]) which provides lazily evaluated `List`s. It makes it possible to create infinite lists.
 
-^ In spite that they are infinite, we can `map` them because the operations are evaluated lazily.
+^ In spite that they are infinite, they can be `map`ped because the operations are evaluated lazily.
 
 ```swift
 // [ Swift ]
@@ -1464,7 +1464,7 @@ func map<U>(transform: T throws -> U) throws -> List<U>
 func map<U>(transform: T -> Result<U>) -> Result<List<U>>
 ```
 
-^ Because it must choose `Success` or `Failure` to return a _result_ value, it cannot be evaluated lazily.
+^ Because it must choose `Success` or `Failure` to return a _result_ value, it must be evaluated immediately.
 
 ^ What I want for my `List` is  =>
 
