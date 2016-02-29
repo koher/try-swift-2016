@@ -1521,7 +1521,7 @@ do {
 
 ^ (20:09, 0:29) Let me show you one downside of `throws` as `Result`.
 
-^ When we forget to write the keyword `try`, with Swift 2.x, we get compilation errors just where we omit `try`.
+^ When we forget to write the keyword `try`, with Swift 2.x, we get a compilation error just where we omit `try`.
 
 ```swift
 // Swift 2.x
@@ -1530,7 +1530,7 @@ let b = toInt(bString)
 let sum = a + b
 ```
 
-^ But with `throws` as `Result`, we get compilation errors where we try to use the result value.
+^ But with `throws` as `Result`, we get a compilation error where we try to use the result value.
 
 ```swift
 // Swift with my proposal
