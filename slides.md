@@ -1489,7 +1489,7 @@ func map<U>(transform: T -> Result<U>) -> List<Result<U>>
 
 ### Results and try
 
-^ (19:59, 0:11) And it enables us to `map` infinite `List`s by a function with `throws` this way.
+^ (19:59, 0:11) It enables us to `map` infinite `List`s by a function with `throws` this way.
 
 ```swift
 // [ Swift ]
