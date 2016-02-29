@@ -1547,7 +1547,7 @@ let sum = a + b // Compilation error here
 
 ^ (20:38, 0:37) Moreover, I think `try` can be used for other purposes besides error handling. One example is for asynchronous operations.
 
-^ JavaScript natively supports the `Promise` for asynchronous operations. Its `then` method is theoretically equivalent to `map` and `flatMap`. I implemented the `Promise` library "PromiseK" ([^7]) for Swift with `map` and `flatMap`.
+^ JavaScript natively supports the `Promise` for asynchronous operations. Its `then` method is theoretically equivalent to `map` and `flatMap`. I implemented the `Promise` library ([^7]) for Swift with `map` and `flatMap`.
 
 ```swift
 // [ Swift ]
