@@ -1733,7 +1733,7 @@ do {
 }
 ```
 
-^ It's good to have independent keywords like `async`, `await` and `reasync` because it makes easier to read the codes. But it needs other extra keywords endlessly when we want to add new features.
+^ It's good to have independent keywords like `async`, `await` and `reasync` because it makes it easier to read the codes. But it needs other extra keywords endlessly when we want to add new features.
 
 ^ I'm wondering which one is better. I just wanted to show you the possibilities of `try`.
 
