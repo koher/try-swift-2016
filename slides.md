@@ -123,7 +123,7 @@ try {
 }
 ```
 
-^ I discussed this problem with my colleagues at Qoncept, our company, and we concluded: we needed an explicit but easy way to ignore errors.
+^ I discussed this problem with my colleagues at Qoncept, our company, and concluded: we needed an explicit but easy way to ignore errors.
 
 ---
 
@@ -603,7 +603,7 @@ if let admin = json["isAdmin"].bool {
 
 ### Alternatives of Optionals
 
-^ (7:40, 0:08) I found three solutions.
+^ (7:40, 0:08) I found three solutions for those problems.
 
 1. _Tuples_
 2. _Union types_
@@ -770,7 +770,7 @@ switch json["isAdmin"].bool {
 }
 ```
 
-^ _Results_ can be `map`ped and `flatMap`ped as well as _optionals_.
+^ _Results_ can be also `map`ped and `flatMap`ped like _optionals_.
 
 ^ The library "antitypical/Result" ([^3]) provides such _results_ for Swift.
 
@@ -904,7 +904,7 @@ switch person {
 
 ^ It was too complicated.
 
-^ I thought about it for a long time. And finally, =>
+^ I thought about this problem for a long time. And finally, =>
 
 ---
 
@@ -934,7 +934,7 @@ enum Result<T> {
 }
 ```
 
-^ But, in most cases, we don't need to branch operations into each type of errors. We just need to care about one or two exceptional ones.
+^ But, in most cases, we don't need to branch operations for all possible errors. We just need to care about one or two exceptional ones.
 
 ---
 
@@ -1077,7 +1077,7 @@ do {
 
 ### Automatic Propagation
 
-^ (13:20, 0:23) In the rationale, the core team defined _manual propagation_ and _automatic propagation_ of errors. With _manual propagation_, errors are handled by a control flow statement manually while, with _automatic propagation_, it jumps automatically to the handler when an error occurs.
+^ (13:20, 0:23) In the rationale, the core team defined _manual propagation_ and _automatic propagation_ of errors. With _manual propagation_, errors are handled by a control flow statement manually while, with _automatic propagation_, it jumps to the handler automatically when an error occurs.
 
 ```swift
 // [ Swift ]
@@ -1216,7 +1216,7 @@ void foo() { // What can `foo` throw?
 }
 ```
 
-^ Then, no one knows what errors can be actually thrown even by a function she implemented. It's so bad. Impossible to complete error handling, and we tend to be careless about it.
+^ Then, no one knows what kinds of errors can be actually thrown even by a function she implemented. It's so bad. Impossible to complete error handling, and we tend to be careless about it.
 
 ---
 
