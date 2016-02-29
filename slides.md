@@ -1750,7 +1750,7 @@ do {
 
 ... and let me know your opinions
 
-^ I'm not very sure that they are all good. So please let me know your opinions. I want to discuss error handling in Swift through this conference.
+^ I'm not perfectly sure that they are all good. So please let me know your opinions. I want to discuss error handling in Swift through this conference.
 
 ^ And I will join in the swift-evolution mailing list because now I have time. I don't need any more time to prepare my presentation.
 
