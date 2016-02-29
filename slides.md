@@ -1446,7 +1446,7 @@ do {
 }
 ```
 
-^ This `map` operation never finishes because it cannot be evaluated lazily.
+^ This `map` operation never finishes. Why?
 
 ---
 
