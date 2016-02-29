@@ -1521,7 +1521,7 @@ do {
 
 ^ (20:09, 0:28) Let me show you one downside of `throws` as `Result`.
 
-^ With Swift 2.x, we get compilation errors at where we just omit `try`.
+^ With Swift 2.x, we get compilation errors just where we omit `try`.
 
 ```swift
 // Swift 2.x
