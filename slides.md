@@ -1571,7 +1571,7 @@ let sum: Result<Int> = a.flatMap { a in b.map { b in a + b } }
 
 ### Asynchronous Operations and try
 
-^ (21:15, 0:28) The future JavaScript will support the `async` / `await` syntax originated in C#. That syntax is backed by the `Promise` and makes it easier to write `then` chains.
+^ (21:15, 0:28) The future JavaScript is going to support the `async` / `await` syntax originated in C#. That syntax is backed by the `Promise` and makes it easier to write `then` chains.
 
 ^ I think we'll need to discuss the `async` / `await` syntax in Swift because asynchronous operations are one of the hottest topics in programming today.
 
