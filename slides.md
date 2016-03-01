@@ -1750,13 +1750,11 @@ do {
 
 ... and let me know your opinions
 
-^ I'm not perfectly sure that they are all good. So please let me know your opinions. I want to discuss error handling in Swift through this conference.
-
-^ And I will join in the swift-evolution mailing list because now I have time. I don't need any more time to prepare my presentation.
+^ I'm not perfectly sure that they are all good. So please let me know your opinions. I want to discuss error handling in Swift through this conference. And I will join in the swift-evolution mailing list.
 
 ---
 
-^ (23:40, 0:48) I'm dreaming of a world where everyone has been educated in programming. I had even tried to design my own programming language suitable for education.
+^ (23:40, 0:48) I'm dreaming of a world where everyone has been educated in programming. I even tried to design my own programming language suitable for education.
 
 ^ One morning, I met Swift. Swift seemed adequate for my purpose. Now I plan to write a free online book for everyone to learn wide programming concepts, from "Hello, world!!" to monads, all in Swift.
 
