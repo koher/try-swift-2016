@@ -1766,13 +1766,23 @@ do {
 
 # Stay Typed. Stay Practical.
 
-^ (24:28, 0:28) "Stay Typed. Stay Practical." [^8]
+^ (24:28, 0:28) "Stay Typed. Stay Practical."
 
 ^ I'm sure this will make the evolution as I talked through my presentation. Stay Typed. Stay Practical. And I have always wished that for Swift's designers. And now, as Swift became open source, I wish that for us.
 
 ^ Stay Typed, Stay Practical.
 
 ^ Thank you all very much.
+
+---
+
+## All my codes in the slides are available at
+
+# koherent.org/tryswift/
+
+## I will also post some further topics related to this talk there.
+
+^ [^8]
 
 [^1]: "SwiftyJSON", [https://github.com/SwiftyJSON/SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON)
 
