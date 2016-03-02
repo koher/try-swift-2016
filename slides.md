@@ -14,7 +14,7 @@ autoscale: true
 
 ^ (0:27, 0:15) The first story is about meeting the `Optional`s.
 
-^ I think that _optionals_ are one of the best features in Swift. So why did I get it?
+^ I think _optionals_ are one of the best features in Swift. So why did I get it?
 
 ^ It started before Swift was born.
 
