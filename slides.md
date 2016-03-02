@@ -312,7 +312,7 @@ let sum: Int?
 if let a = a, b = b {
   sum = a + b
 } else {
-  sum - nil
+  sum = nil
 }
 ```
 
