@@ -1054,7 +1054,7 @@ let sum: Int|
 
 ### Automatic Propagation
 
-^ (12:57, 0:23) My first impression was bad. I didn't want to go back to the Java age. But as I learned it, I figured out it was pretty good.
+^ (12:57, 0:23) My first impression was bad. I didn't want to go back to the Java age. But as I learned it, I started to think it was pretty good.
 
 ^ The Swift core team explained why they employed the `try` / `catch` syntax in the document named "Error Handling Rationale and Proposal" ([^5]).
 
@@ -1472,7 +1472,7 @@ func map<U>(transform: T -> Result<U>) -> Result<List<U>>
 
 ### Results and try
 
-^ (19:51, 0:07) this. `Result` and `List` are flipped. This can be evaluated lazily.
+^ (19:51, 0:07) this. `Result` and `List` are swapped. This can be evaluated lazily.
 
 ```swift
 // [ Swift ]
