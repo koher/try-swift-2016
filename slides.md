@@ -1138,7 +1138,7 @@ do {
 ```swift
 // [ Swift ]
 let sum = toInt(aString).flatMap { a in
-   toInt(bString).flatMap {
+   toInt(bString).flatMap { b in
      .Some(a + b)
    }
 }
