@@ -1,4 +1,6 @@
-# README
+# Three Stories about Error Handling in Swift
+
+This repository contains the slides and the transcript of my talk in [try! Swift 2016](http://www.tryswiftconf.com/en). The video of my talk is available [here](https://realm.io/news/tryswift-yuta-koshizawa-error-handling-swift/).  
 
 ## Notice
 
