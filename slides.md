@@ -1,3 +1,4 @@
+theme: Plain Jane
 autoscale: true
 
 # Three Stories about __Error Handling__ in Swift
